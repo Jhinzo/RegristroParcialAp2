@@ -1,0 +1,26 @@
+﻿@inherits LayoutComponentBase
+
+<BlazoredToasts Position="Blazored.Toast.Configuration.ToastPosition.BottomCenter" ShowProgressBar="true" />
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <div class="main">
+        <div class="top-row px-4 auth" style="backdrop-filter: blur(8px); background-color: rgba(255, 255, 255, 0.3); ">
+            <div class="form-inline w-100">
+                <a class="nav-link" href="Info">
+                    <img src="integrantes.png" class="oi-image" width="190" />
+                </a>
+
+                <a class="nav-link" href="Info">
+                    <i class="oi oi-info mr-2"></i>Programadores
+                </a>
+            </div>
+        </div>
+        <div class="content px-4">
+            @Body
+            <BlazoredToasts />
+        </div>
+    </div>
+</div>

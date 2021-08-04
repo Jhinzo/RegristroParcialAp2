@@ -1,0 +1,180 @@
+﻿@page "/Tabla-de-Jugadores"
+
+@using System.Timers
+@using BLL
+@inject IToastService Toast
+
+<style>
+    .container {
+        width: 500px;
+    }
+
+    button {
+        width: 70px;
+        height: 70px;
+        font-size: 50px;
+    }
+
+    body, html {
+        height: 90vh;
+        background-image: url(https://media.istockphoto.com/vectors/farmer-background-with-the-animals-play-together-vector-id941684006?s=2048x2048);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .bg-black {
+        background-color: rgba(0, 0, 0, 0.03);
+    }
+
+    .bg-w {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .blur {
+        backdrop-filter: blur(8px);
+    }
+
+    .table-wrapper {
+        width: 100%;
+        height: 600px;
+        overflow: auto;
+    }
+
+        .table-wrapper table thead {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            left: 0;
+        }
+</style>
+
+<div class="card col-6 oi-share-boxed bg-black" style="max-height: 700px">
+    <div class="card-header">
+        <center><h3><b>TOP Jugadores</b></h3></center>
+        <br />
+        <div class="input-group">
+            <select class="form-control ml-3 w-1" @bind-value="IndexConsulta" @bind-value:event="oninput">
+                <option value="-1" disabled>Filtrar por...</option>
+                <option value="0">Todos</option>
+                <option value="1">Jugador</option>
+                <option value="2">Dificultad</option>
+            </select>
+           
+            <input class="form-control ml-3" @bind-value="CriterioTextBox" @bind-value:event="oninput" placeholder="Criterio a filtrar" />
+           
+            @if (CriterioTextBox != null)
+            {
+                CargarConsulta();
+                if (IndexConsulta != -1)
+                {
+                    CriterioTextBox = string.Empty;
+                }
+            }
+            
+        </div>
+    </div>
+
+    <div class="card-body bg-transparent">
+        <div class="table-wrapper">
+            @*——————————————————————————————————————————————[ TITULOS DE LA TABLA ]——————————————————————————————————————————————*@
+            <table style="background-color: transparent; " class="table table-hover">
+                <thead style="background-color: rgba(255, 255, 255, 0.2); backdrop-filter: blur(15px);">
+                    <tr>
+                        <th>#</th>
+                        <th>Jugador</th>
+                        <th>Tiempo</th>
+                        <th>Dificultad</th>
+                    </tr>
+                </thead>
+
+                @*——————————————————————————————————————————————[ DATOS DE LA TABLA ]——————————————————————————————————————————————*@
+                <tbody>
+                    @{
+                        int i = 0;
+                    }
+
+                    @foreach (Models.MatchGame item in jugadas)
+                    {
+                        i++;
+                        <tr>
+                            <td>@i</td>
+                            <td>@item.Jugador</td>
+                            <td>@item.TimeDisplay</td>
+                            <td>@item.Dificultad</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    int EstiloIndexSelect = 1;
+    int DificultadIndexSelect = 1;
+    int cantidadEmoji;
+    private Models.MatchGame game = new Models.MatchGame();
+    string CriterioTextBox = "";
+    string JugadorTextBox = "";
+
+    int IndexConsulta = -1;
+    public List<MatchGame> Filtro { get; set; }
+
+    List<Models.MatchGame> jugadas = new List<Models.MatchGame>();
+    List<string> mezclarEmoji = new List<string>();
+    int parejasEncontradas = 0;
+    Timer timer;
+    int decimasSegundos = 0;
+    string timeDisplay;
+    string mensaje = string.Empty;
+
+    bool cambio;
+
+    protected override void OnInitialized()
+    {
+        timer = new Timer(100);
+        jugadas = new List<Models.MatchGame>();
+
+        CantidadEmoji();
+        CargarConsulta();
+    }
+    private void CargarConsulta()
+    {
+        if (IndexConsulta == -1 || IndexConsulta == 0)
+        {
+            jugadas = MatchGameBLL.GetList(p => true).ToList();
+        }
+        else
+        {
+            if (IndexConsulta == 1)
+            {
+                jugadas = MatchGameBLL.GetList(p => p.Jugador.ToLower().Contains(CriterioTextBox.ToLower())).ToList();
+            }
+            else if (IndexConsulta == 2)
+            {
+                jugadas = MatchGameBLL.GetList(p => p.Dificultad.ToLower().Contains(CriterioTextBox.ToLower())).ToList();
+            }
+
+        }
+        jugadas = jugadas.OrderBy(j => j.Tiempo).ToList();
+    }
+
+    //——————————————————————————————————————————————[ Cantidad Emoji ]——————————————————————————————————————————————
+    private void CantidadEmoji()
+    {
+        if (DificultadIndexSelect == 1)
+        {
+            cantidadEmoji = 6;
+        }
+        if (DificultadIndexSelect == 2)
+        {
+            cantidadEmoji = 10;
+        }
+        if (DificultadIndexSelect == 3)
+        {
+            cantidadEmoji = 16;
+        }
+    }
+}
