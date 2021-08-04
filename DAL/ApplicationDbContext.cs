@@ -19,5 +19,7 @@ namespace ProyectoFinal.DAL
         {
             optionsBuilder.UseSqlite(@"Data Source= Data/MatchGame.db");
         }
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+        public ApplicationDbContext() { }
     }
 }
