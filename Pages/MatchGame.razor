@@ -73,14 +73,15 @@
 
                 </div> 
                 
-                    <div class="form group row">
+                    <div class="form group row ">
                         @for (var animalNumber = 0; animalNumber < mezclarEmoji.Count; animalNumber++)
                         {
                             var emoji = mezclarEmoji[animalNumber];
                             var uniqueDescription = $"Button #{animalNumber}";
-                            <div class="col-3">
+                            <div class="border col-3 ">
                                  <button @onclick="@(() => ButtonClick(emoji, uniqueDescription))"
-                                     type="button" class="btn btn-outline-dark; active">
+                                     type="button" class="btn btn-outline-dark; active ">
+
                                     <h1>@emoji</h1>
                                     
                                  </button>
@@ -169,7 +170,7 @@
 
         if (EstiloIndexSelect != 0)
         {
-            @*——————————————————————————————————————————————[ Caritas ]——————————————————————————————————————————————*@
+           
             if (DificultadIndexSelect == 1 && EstiloIndexSelect == 1)
             {
                 mezclarEmoji = Emoji_4X3.OrderBy(item => random.Next()).ToList();
@@ -279,7 +280,7 @@
 
     
 
-    //——————————————————————————————————————————————[ Temporizador ]——————————————————————————————————————————————
+    
     private void Temporizador(Object source, ElapsedEventArgs e)
     {
         mensaje = string.Empty;
@@ -295,6 +296,7 @@
 
     List<string> Emoji_4X3 = new List<string>()
 {
+        
         "🐶","🐶",
         "🐺","🐺",
         "🐮","🐮",
