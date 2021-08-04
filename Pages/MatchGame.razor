@@ -7,6 +7,7 @@
 <style>
     .container {
         width: 600px;
+        table-layout:fixed;
     }
 
     button {
@@ -31,45 +32,30 @@
         background-color: rgba(255, 255, 255, 0.1);
     }
 
-    .blur {
-        backdrop-filter: blur(8px);
-    }
 
-    .table-wrapper {
-        width: 100%;
-        height: 600px;
-        overflow: auto;
-    }
-
-        .table-wrapper table thead {
-            position: -webkit-sticky;
-            position: sticky;
-            top: 0;
-            left: 0;
-        }
+   
 </style>
 
 <EditForm Model="game">
     <DataAnnotationsValidator />
     <body>
 
-        @*——————————————————————————————————————————————[ Contenedor ]——————————————————————————————————————————————*@
         <div class="card-group">
-            <div class="container blur ">
-                @*——————————————————————————————————————————————[ Jugador ]——————————————————————————————————————————————*@
+            <div class="container border ">
+
                 <br>
                 <div class="form-group row">
                     <div class="col-form">
-                       <label class="form-label"><b>Jugador</b></label>
-                       <div class="col input-group">
+                        <label class="form-label"><b>Jugador</b></label>
+                        <div class="col input-group">
                             <InputText @bind-Value="JugadorTextBox" class="form-control" placeholder="nombre de Jugador." />
-                       </div>
+                        </div>
                     </div>
 
                     <ValidationMessage For="@(() => JugadorTextBox)" />
                 </div>
 
-                @*——————————————————————————————————————————————[ Dificultad ]——————————————————————————————————————————————*@
+
                 <div class="form-group row">
                     <div class="col form">
                         <label class="form-label"><b>Dificultad</b></label>
@@ -80,46 +66,52 @@
                         </select>
                         @if (DificultadIndexSelect != 0)
                         {
-                            
+
                         }
                     </div>
 
-                    
-                </div>
+
+                </div> 
+                
+                    <div class="form group row">
+                        @for (var animalNumber = 0; animalNumber < mezclarEmoji.Count; animalNumber++)
+                        {
+                            var emoji = mezclarEmoji[animalNumber];
+                            var uniqueDescription = $"Button #{animalNumber}";
+                            <div class="col-3">
+                                 <button @onclick="@(() => ButtonClick(emoji, uniqueDescription))"
+                                     type="button" class="btn btn-outline-dark; active">
+                                    <h1>@emoji</h1>
+                                    
+                                 </button>
+                            </div>
+                        }
+                    </div>
+                
+                
+                <div class="card"
+
+                     <div class="form-control-range" >
+                         
+                          <h3><b>Parejas encontradas: </b>@parejasEncontradas / @cantidadEmoji</h3>
+                          <h3><b>Tiempo: </b>@timeDisplay</h3>
+                          <button style="margin-inline-start: 70px;" class="btn btn-primary w-auto" @onclick="@(() => RegistrarResultadosButtonClick())"><i class="oi oi-account-login " style="transform:rotate(90deg)" />Guardar Resultados</button>
+                         
+                     </div>
+        
+
 
                 
-                <div class="form-group row">
-                    @for (var animalNumber = 0; animalNumber < mezclarEmoji.Count; animalNumber++)
-                    {
-                        var emoji = mezclarEmoji[animalNumber];
-                        var uniqueDescription = $"Button #{animalNumber}";
-                        <div class="col-3">
-                            <button @onclick="@(() => ButtonClick(emoji, uniqueDescription))"
-                                    type="button" class="btn btn-outline-dark; active">
-                                <h1>@emoji</h1>
-                            </button>
-                        </div>
-                    }
-                </div>
 
-                @*——————————————————————————————————————————————[ Tiempo y demas ]——————————————————————————————————————————————*@
-                <div class="input">
-                    <h3><b>Parejas encontradas: </b>@parejasEncontradas / @cantidadEmoji</h3>
-                    <h3><b>Tiempo: </b>@timeDisplay</h3>
-                    <br />
-                    <h4 style="color:dodgerblue; text-align:center"><b>@mensaje</b></h4>
-                    <br />
-                    <button style="margin-inline-start: 70px;" class="btn btn-primary w-auto"  @onclick="@(() => RegistrarResultadosButtonClick())"><i class="oi oi-account-login " style="transform:rotate(90deg)" />Guardar Resultados</button>
                 </div>
-            </div>
-
-            @*——————————————————————————————————————————————[ LISTA DE JUGADORES ]——————————————————————————————————————————————*@
             
+            </div>
         </div>
+        
     </body>
 </EditForm>
 
-@*——————————————————————————————————————————————[ Codigo ]——————————————————————————————————————————————*@
+
 @code {
     int EstiloIndexSelect = 1;
     int DificultadIndexSelect = 1;
@@ -149,33 +141,10 @@
 
         CantidadEmoji();
         InicioJuego();
-        CargarConsulta();
+        
     }
 
-    //——————————————————————————————————————————————[ Consulta ]——————————————————————————————————————————————
-    private void CargarConsulta()
-    {
-        if (IndexConsulta == -1 || IndexConsulta == 0)
-        {
-            jugadas = MatchGameBLL.GetList(p => true).ToList();
-        }
-        else
-        {
-            if (IndexConsulta == 1)
-            {
-                jugadas = MatchGameBLL.GetList(p => p.Jugador.ToLower().Contains(CriterioTextBox.ToLower())).ToList();
-            }
-            else if (IndexConsulta == 2)
-            {
-                jugadas = MatchGameBLL.GetList(p => p.Dificultad.ToLower().Contains(CriterioTextBox.ToLower())).ToList();
-            }
-            else if (IndexConsulta == 3)
-            {
-                jugadas = MatchGameBLL.GetList(p => p.Estilo.ToLower().Contains(CriterioTextBox.ToLower())).ToList();
-            }
-        }
-        jugadas = jugadas.OrderBy(j => j.Tiempo).ToList();
-    }
+    
 
     
     private void CantidadEmoji()
@@ -227,12 +196,12 @@
     string ultimoEmoji = string.Empty;
     string ultimaDescripcion = string.Empty;
 
-    //——————————————————————————————————————————————[ Click ]——————————————————————————————————————————————
+   
     private void ButtonClick(string emoji, string emojiDescripcion)
     {
         if (JugadorTextBox == string.Empty)
         {
-            Toast.ShowError("Para iniciar el juego, debes asignarle un nombre al jugador.");
+            Toast.ShowError("Asignarle un nombre de jugador.");
             return;
         }
 
@@ -260,27 +229,24 @@
                 //Models.MatchGame game = new Models.MatchGame();
                 //game.Jugador = JugadorTextBox;
                 //game.Dificultad = DificultadIndexSelect.ToString();
-                //game.Estilo = EstiloIndexSelect.ToString();
                 //game.TimeDisplay = timeDisplay;
 
                 //BLL.MatchGameBLL.Guardar(game);
 
                 mensaje = "Toca un Emoji para volver a Jugar.";
                 InicioJuego();
-                //CargarConsulta(0, "");
+                
             }
         }
         else
         {
-            // User selected a pair that don't match.
-            // Reset selection.
+            
             ultimoEmoji = string.Empty;
         }
     }
-    //——————————————————————————————————————————————[ REINICIAR JUEGO ]——————————————————————————————————————————————
+    
     
 
-    //——————————————————————————————————————————————[ REGISTRAR RESULTADOS ]——————————————————————————————————————————————
     private void RegistrarResultadosButtonClick()
     {
         Models.MatchGame game = new Models.MatchGame();
@@ -288,12 +254,6 @@
         if (JugadorTextBox == string.Empty)
         {
             Toast.ShowError("Para Registrar este resultado, debes asignarle un nombre al jugador");
-            return;
-        }
-
-        if (timer.Enabled)
-        {
-            Toast.ShowError("Para Registrar este resultado, debes terminar el juego.");
             return;
         }
 
@@ -311,7 +271,7 @@
             game.TimeDisplay = timeDisplay;
 
             MatchGameBLL.Guardar(game);
-            CargarConsulta();
+            
 
             Toast.ShowSuccess("Resultados registrados exitosamente.");
             
@@ -333,9 +293,8 @@
         });
     }
 
-    #region@*——————————————————————————————————————————————[ Listas de Emoji ]——————————————————————————————————————————————*@
+    #region
 
-    @*——————————————————————————————————————————————[ Caritas ]——————————————————————————————————————————————*@
     List<string> Emoji_4X3 = new List<string>()
 {
         "🐶","🐶",
