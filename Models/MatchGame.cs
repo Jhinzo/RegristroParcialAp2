@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 
-namespace ProyectoFinalAP2AP2.Models
+namespace ProyectoFinalAP2.Models
 {
     public class MatchGame
     {
