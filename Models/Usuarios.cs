@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ProyectoFinal.Models
+namespace ProyectoFinalAP2.Models
 {
     public class Usuarios : IdentityUser<int>
     {

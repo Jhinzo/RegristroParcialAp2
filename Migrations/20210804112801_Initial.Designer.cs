@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProyectoFinal.DAL;
 
-namespace ProyectoFinal.Migrations
+namespace ProyectoFinalAP2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20210804112801_Initial")]

@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using ProyectoFinal.DAL;
 using ProyectoFinal.Models;
 using System.Threading.Tasks;
-namespace ProyectoFinal.BLL
+namespace ProyectoFinalAP2.BLL
 {
     public class MatchGameBLL
     {

@@ -11,7 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Blazored.Toast;
 
-namespace ProyectoFinal
+namespace ProyectoFinalAP2
 {
     public class Startup
     {

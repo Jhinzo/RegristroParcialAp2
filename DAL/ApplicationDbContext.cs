@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using ProyectoFinal.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-namespace ProyectoFinal.DAL
+namespace ProyectoFinalAP2.DAL
 {
     public class ApplicationDbContext : IdentityDbContext<Usuarios, IdentityRole<int>, int>
     {
