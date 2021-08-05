@@ -3,7 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ProyectoFinal.DAL;
+using ProyectoFinalAP2.DAL;
 
 namespace ProyectoFinalAP2.Migrations
 {
@@ -142,7 +142,7 @@ namespace ProyectoFinalAP2.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("ProyectoFinal.Models.MatchGame", b =>
+            modelBuilder.Entity("ProyectoFinalAP2.Models.MatchGame", b =>
                 {
                     b.Property<int>("MatchGameId")
                         .ValueGeneratedOnAdd()
@@ -166,7 +166,7 @@ namespace ProyectoFinalAP2.Migrations
                     b.ToTable("MatchGame");
                 });
 
-            modelBuilder.Entity("ProyectoFinal.Models.Usuarios", b =>
+            modelBuilder.Entity("ProyectoFinalAP2.Models.Usuarios", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -242,7 +242,7 @@ namespace ProyectoFinalAP2.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
                 {
-                    b.HasOne("ProyectoFinal.Models.Usuarios", null)
+                    b.HasOne("ProyectoFinalAP2.Models.Usuarios", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -251,7 +251,7 @@ namespace ProyectoFinalAP2.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
                 {
-                    b.HasOne("ProyectoFinal.Models.Usuarios", null)
+                    b.HasOne("ProyectoFinalAP2.Models.Usuarios", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -266,7 +266,7 @@ namespace ProyectoFinalAP2.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProyectoFinal.Models.Usuarios", null)
+                    b.HasOne("ProyectoFinalAP2.Models.Usuarios", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -275,7 +275,7 @@ namespace ProyectoFinalAP2.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
                 {
-                    b.HasOne("ProyectoFinal.Models.Usuarios", null)
+                    b.HasOne("ProyectoFinalAP2.Models.Usuarios", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

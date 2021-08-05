@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ProyectoFinal.Models;
+using ProyectoFinalAP2.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace ProyectoFinalAP2.DAL

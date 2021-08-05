@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Linq.Expressions;
-using ProyectoFinal.DAL;
-using ProyectoFinal.Models;
+using ProyectoFinalAP2.DAL;
+using ProyectoFinalAP2.Models;
 using System.Threading.Tasks;
 namespace ProyectoFinalAP2.BLL
 {

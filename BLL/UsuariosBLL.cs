@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ProyectoFinal.DAL;
-using ProyectoFinal.Models;
+using ProyectoFinalAP2.DAL;
+using ProyectoFinalAP2.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
